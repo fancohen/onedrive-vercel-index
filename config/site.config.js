@@ -42,7 +42,7 @@ module.exports = {
   head:
     '	<style>
 		body {
-			background-image: url(/sail.jpg);
+			background-image: url(https://www.linweifan.com/sail.jpg);
 		}
 	</style>'，
   // [OPTIONAL] This is where you specify the folders that are password protected. It is an array of paths pointing to all
