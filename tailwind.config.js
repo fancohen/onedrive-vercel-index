@@ -1,9 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 const siteConfig = require('./config/site.config')
-const body = document.querySelector('body');
-const imageUrl = 'https://www.linweifan.com/sail.jpg';
-body.style.backgroundImage = `url(${imageUrl})`;
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
