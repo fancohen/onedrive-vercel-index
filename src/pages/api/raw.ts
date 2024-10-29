@@ -22,23 +22,29 @@ export function runCorsMiddleware(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const accessToken = await getAccessToken()
-  if (!accessToken) {
-    res.status(403).json({ error: 'No access token.' })
-    return
+  const { path = '/', odpt = '', proxy = false } = req.query;
+
+  // 检查请求路径是否包含 .password 文件
+  if (path.includes('.password')) {
+    res.status(403).json({ error: 'Access to this file is forbidden.' });
+    return;
   }
 
-  const { path = '/', odpt = '', proxy = false } = req.query
+  const accessToken = await getAccessToken();
+  if (!accessToken) {
+    res.status(403).json({ error: 'No access token.' });
+    return;
+  }
 
   // Sometimes the path parameter is defaulted to '[...path]' which we need to handle
   if (path === '[...path]') {
-    res.status(400).json({ error: 'No path specified.' })
-    return
+    res.status(400).json({ error: 'No path specified.' });
+    return;
   }
   // If the path is not a valid path, return 400
   if (typeof path !== 'string') {
-    res.status(400).json({ error: 'Path query invalid.' })
-    return
+    res.status(400).json({ error: 'Path query invalid.' });
+    return;
   }
   const cleanPath = pathPosix.resolve('/', pathPosix.normalize(path))
 
